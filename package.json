@@ -1,0 +1,22 @@
+{
+  "name": "backend-boilerplate-node",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misrab/backend-boilerplate-node.git"
+  },
+  "author": "Misrab M. Faizullah-Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/misrab/backend-boilerplate-node/issues"
+  },
+  "homepage": "https://github.com/misrab/backend-boilerplate-node",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
