@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/misrab/backend-boilerplate-node",
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "pg": "^4.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^2.1.0"
   }
 }

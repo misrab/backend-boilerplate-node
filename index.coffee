@@ -1,17 +1,25 @@
 express = require "express"
+http = require "http"
 
-routes = require "./config/routes"
+db = require "./models"
+
 
 
 app = express()
-app.set 'port', (process.env.PORT || 5000)
-app.use express.static __dirname + '/public'
 
-
+# do config
+require("./config/environment")(app, express)
 
 # set up routes
-routes app
+require("./config/routes") app
 
+
+
+db.sequelize.sync().then(()->
+  http.createServer(app).listen(app.get('port'), ()->
+    console.log('Express server listening on port ' + app.get('port'))
+  )
+)
 
 # # catch 404 and forward to error handler
 # app.use((req, res, next)->
@@ -20,8 +28,6 @@ routes app
 #     next(err)
 # )
 
-
-
-app.listen(app.get('port'), ()->
-  console.log 'Node app is running on port ' + app.get('port')
-)
+# app.listen(app.get('port'), ()->
+#   console.log 'Node app is running on port ' + app.get('port')
+# )
