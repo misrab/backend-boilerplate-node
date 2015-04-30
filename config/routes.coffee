@@ -1,6 +1,8 @@
 module.exports = (app)->
 	app.get('/', (request, response)->
-  		response.send 'Hello World!'
+  		response.json 200
 	)
 
-	# app.get('/users', user.list)
+
+
+	
