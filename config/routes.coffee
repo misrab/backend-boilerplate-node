@@ -1,5 +1,5 @@
 module.exports = (app)->
-	app.get('/', (request, response)->
+	app.get('/api/v1', (request, response)->
   		response.json 200
 	)
 

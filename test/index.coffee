@@ -7,7 +7,7 @@ request = require 'supertest'
 
 userController = require '../controllers/users'
 
-ROOT_URL = "http://localhost:5000"
+ROOT_URL = "http://localhost:5000/api/v1"
 
 
 
@@ -23,9 +23,20 @@ describe 'Routing', ()->
 
 
 
-describe 'Controllers', ()->
+describe 'UserController', ()->
+	describe 'PostUser', ()->
+		it 'should create a user and set password', (done)->
+			fields = { 
+				email: 'misrab@misrab.com'
+				password: 'lalala'
+			}
+			userController.postUser fields, (err, user)->
+				if err then throw new Error "Error creating user: " + JSON.stringify err
+				console.log user
+				done()
+
 	describe 'GetUsers', ()->
 		it 'should get all users', (done)->
-			userController.getUsers (err, users)->
+			userController.getUsers {}, (err, users)->
 				console.log users
 				done()
