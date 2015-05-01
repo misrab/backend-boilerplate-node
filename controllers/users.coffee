@@ -1,7 +1,9 @@
 User = require("../models").User
 
+shared = require "./shared"
 
 
+# needs special password set
 postUser = (fields, done)->
 	user = User.build(fields)
 	user.setPassword fields.password, (err, user)->
@@ -12,15 +14,15 @@ postUser = (fields, done)->
 			.catch done
 
 
-getUser = (fields, done)->
-	done null, null
+# getUser = (fields, done)->
+# 	done null, null
 
-getUsers = (fields, done)->
-	done null, []
+# getUsers = (fields, done)->
+# 	done null, []
 
 
 module.exports = {
-	getUsers: getUsers
-	getUser: getUser
+	# getUsers: getUsers
+	# getUser: getUser
 	postUser: postUser
 }

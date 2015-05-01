@@ -14,12 +14,27 @@ require("./config/environment")(app, express)
 require("./config/routes") app
 
 
+# clear database if appropriate
+clearDB = null
+if process.env.ENV=='development'
+	clearDB = (next) ->
+		db.sequelize.drop().then(next).catch(next)
+		#next(null);
+else if process.env.ENV=='staging'
+	clearDB = (next)->
+		next(null)
+else
+	#!!! PRODUCTION, CAREFUL !!!
+	clearDB = (next)->
+		next(null)
 
-db.sequelize.sync().then(()->
-  http.createServer(app).listen(app.get('port'), ()->
-    console.log('Express server listening on port ' + app.get('port'))
-  )
-)
+
+clearDB (err)->
+	db.sequelize.sync().then(()->
+	  http.createServer(app).listen(app.get('port'), ()->
+	    console.log('Express server listening on port ' + app.get('port'))
+	  )
+	)
 
 # # catch 404 and forward to error handler
 # app.use((req, res, next)->
