@@ -25,7 +25,7 @@ describe 'Routing', ()->
 	describe 'Get /', ()->
 		it 'should say hello', (done)->
 			request ROOT_URL
-				.get '/'
+				.get '/?secret=fdsjfk32r90r32orjf3902j3j3felkfds'
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(200, done)
