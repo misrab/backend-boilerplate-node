@@ -16,20 +16,29 @@ ROOT_URL = "http://localhost:5000/api/v1"
 
 
 describe 'Routing', ()->
-	# before (done)->
- #    	# In our tests we use the test db
- #    	mongoose.connect(config.db.mongodb)						
- #    	done()
-
 
 	describe 'Get /', ()->
 		it 'should say hello', (done)->
 			request ROOT_URL
-				.get '/?secret=fdsjfk32r90r32orjf3902j3j3felkfds'
+				.get '?secret=fdsjfk32r90r32orjf3902j3j3felkfds'
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(200, done)
 
+
+	describe 'Social login', ()->
+		it 'should handle a user object', (done)->
+			postData = {
+				email: "foo@foo.com"
+				password: "lalala"
+			}
+
+			request ROOT_URL
+				.post '/user/socialLogin?secret=fdsjfk32r90r32orjf3902j3j3felkfds'
+				.send(postData)
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200, done)
 
 
 # TODO test query params
@@ -106,7 +115,6 @@ describe 'UserController', ()->
 				if !user.hash then throw new Error "Hash not set"
 				# console.log user
 				done()
-
 
 	# cleanup
 	# describe 'DeleteUser', ()->

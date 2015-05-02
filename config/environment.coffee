@@ -1,4 +1,4 @@
-
+bodyParser = require "body-parser"
 
 
 module.exports = (app, express)->
@@ -6,6 +6,7 @@ module.exports = (app, express)->
 
 	# app.use(express.logger('dev'))
 	# app.use(express.bodyParser())
+	app.use bodyParser.json {}
 	# app.use(express.methodOverride())
 	# app.use(app.router)
 

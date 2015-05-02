@@ -26,9 +26,8 @@ module.exports = (app)->
 	app.use auth
 
 	# basic route
-	app.get('/api/v1', (request, response)->
-  		response.json 200
-	)
+	app.get '/api/v1', (req, res)->
+  		res.json 200
 
 
 	# users
@@ -36,6 +35,22 @@ module.exports = (app)->
 
 	# products
 
+
+
+	# social login
+
+	# expect a user post
+	app.post '/api/v1/user/socialLogin', (req, res)->
+		user = req.body
+		console.log "user is " + JSON.stringify user
+		res.json 200
+
+
+
+
+	# 404
+	app.use (req, res, next)->
+		return res.json 404, null
 
 
 	
