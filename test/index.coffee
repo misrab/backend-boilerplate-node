@@ -1,6 +1,8 @@
 # Tests are written in Mocha.
 # Be sure to start the server before running tests.
 
+async = require 'async'
+
 should = require 'should' 
 assert = require 'assert'
 request = require 'supertest'
@@ -30,37 +32,61 @@ describe 'Routing', ()->
 
 
 
-
+# TODO test query params
 describe 'SharedController', ()->
 	model = models.Product
+	ids = [] # list of created ids
+
+	buildItem = (model, done)->
+		item = model.build()
+		fields = {}
+		for k, v of item.toJSON()
+			if k == "id" then continue
+			fields[k] = Math.random().toString()
+		sharedController.postItem model, fields, (err, result)->
+			if err then throw err
+			# add id to created items
+			ids.push result.id
+			done(null, result)
 
 	# FORNOW all fields are strings
 	describe 'PostItem', ()->
 		it 'should create an item', (done)->
-			item = model.build()
-			fields = {}
-			for k, v of item.toJSON()
-				if k == "id" then continue
-				fields[k] = Math.random().toString()
-			sharedController.postItem model, fields, (err, result)->
+			buildItem model, (err, result)->
+				done()
+
+
+	describe 'GetItem', ()->
+		it 'should get an item', (done)->
+			fields = { id: ids[0] }
+			sharedController.getItem model, fields, (err, result)->
+				if err then throw err
+				done()
+
+	describe 'GetItems', ()->
+		it 'get all items', (done)->
+			sharedController.getItems model, {}, (err, result)->
 				if err then throw err
 				done()
 
 	describe 'PatchItem', ()->
 		it 'should create a user and set password', (done)->
-			done()
+			fields = {
+				id: ids[0]
+				title: 'foofofoo' # ASSUMING field here
+			}
+			sharedController.patchItem {}, model, fields, done
 
-	describe 'GetItem', ()->
-		it 'should create a user and set password', (done)->
-			done()
-
-	describe 'GetItems', ()->
-		it 'should create a user and set password', (done)->
-			done()
-
+	# also acts as cleanup
 	describe 'DeleteItem', ()->
-		it 'should create a user and set password', (done)->
-			done()
+		it 'should delete all items created in this test', (done)->
+			async.each ids,
+				(id, cb)->
+					sharedController.deleteItem model, id, cb
+				(err)->
+					console.log "FINISHED"
+					if err then throw err
+					done()
 
 
 
@@ -80,3 +106,7 @@ describe 'UserController', ()->
 				if !user.hash then throw new Error "Hash not set"
 				# console.log user
 				done()
+
+
+	# cleanup
+	# describe 'DeleteUser', ()->

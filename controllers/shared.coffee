@@ -3,6 +3,7 @@ getItem = (model, fields, done)->
 	model
 		.find { where: fields }
 		.then (result)->
+			# console.log 'got: ' + JSON.stringify result.toJSON()
 			done null, result
 		.catch done
 
@@ -22,8 +23,15 @@ postItem = (model, fields, done)->
 
 # make sure owner is the owner of this item
 # relies on calling function to supply authentic owner
+# id is required in fields
 patchItem = (owner, model, fields, done)->
-	return
+	searchFields = { id: fields.id }
+	getItem model, searchFields, (err, result)->
+		# update instancek
+		result.updateAttributes fields
+			.then (result)->
+				done null, result
+			.catch done
 
 deleteItem = (model, id, done)->
 	fields = { id: id }
@@ -31,7 +39,8 @@ deleteItem = (model, id, done)->
 		if err then return done err
 		result
 			.destroy()
-			.then done
+			.then (result)->
+				done()
 			.catch done
 
 
