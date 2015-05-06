@@ -33,6 +33,8 @@ if (!global.hasOwnProperty('db'))
     sequelize: sequelize,
     User:      sequelize.import(__dirname + '/user')
     Product:      sequelize.import(__dirname + '/product')
+
+    ReportLandscape: sequelize.import(__dirname + '/report_landscape')
   }
 
   
