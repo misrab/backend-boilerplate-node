@@ -8,7 +8,8 @@ if (!global.hasOwnProperty('db'))
   if (process.env.ENV=='production')
     pg_url = process.env.HEROKU_POSTGRESQL_AQUA_URL
   else if (process.env.ENV=='staging') 
-    pg_url = process.env.HEROKU_POSTGRESQL_ROSE_URL
+    # pg_url = process.env.HEROKU_POSTGRESQL_ROSE_URL
+    pg_url = "postgres://postgres: @" + process.env.POSTGRES_PORT_5432_TCP_ADDR + ":5432/postgres"
   else
     pg_url = process.env.POSTGRESQL_LOCAL_URL
 
