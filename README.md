@@ -1,6 +1,8 @@
 # backend-boilerplate-node
 
 
+# Docker
+
 # get a pg image, and build ours from the dockerfile
 docker pull postgres
 docker build -t misrab/node .
@@ -14,3 +16,11 @@ docker run --name app --link some-postgres:postgres -d misrab/node
 
 # for interactive testing
 # docker run -t -i  misrab/node /bin/bash
+
+
+
+
+# Testing
+
+run server coffee index.coffee
+seperately run npm test

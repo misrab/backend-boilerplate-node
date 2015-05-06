@@ -2,7 +2,9 @@ bodyParser = require "body-parser"
 
 
 module.exports = (app, express)->
-	app.set('port', (process.env.PORT || 5000))
+	# console.log 'Setting environment...'
+
+	app.set('port', (process.env.PORT || 8080))
 
 	# app.use(express.logger('dev'))
 	# app.use(express.bodyParser())

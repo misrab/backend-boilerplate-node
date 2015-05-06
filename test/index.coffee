@@ -11,7 +11,7 @@ userController = require '../controllers/users'
 sharedController = require '../controllers/shared'
 models = require '../models'
 
-ROOT_URL = "http://localhost:5000/api/v1"
+ROOT_URL = "http://localhost:8080/api/v1"
 
 
 
@@ -26,7 +26,7 @@ describe 'Routing', ()->
 				.expect(200, done)
 
 
-	describe 'Social login', ()->
+	describe 'Login', ()->
 		it 'should handle a user object', (done)->
 			postData = {
 				email: "foo@foo.com"

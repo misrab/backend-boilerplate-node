@@ -23,7 +23,8 @@ module.exports = (app)->
 		if query['secret'] != AUTH_TOKEN then return res.json 401, null
 		console.log 'PASSED AUTH'
 		next()
-	app.use auth
+	# hook up to all routes
+	# app.use auth
 
 	# basic route
 	app.get '/api/v1', (req, res)->
@@ -37,7 +38,13 @@ module.exports = (app)->
 
 
 
-	# social login
+	# social / login
+
+	app.post 'api/v1/user/login', (req, res)->
+		user = req.body
+		console.log "user is " + JSON.stringify user
+		res.json 200
+		
 
 	# expect a user post
 	app.post '/api/v1/user/socialLogin', (req, res)->

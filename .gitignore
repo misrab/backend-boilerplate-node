@@ -1,5 +1,5 @@
 # Want coffeescript, not js
-*.js
+#*.js
 
 # Logs
 logs
